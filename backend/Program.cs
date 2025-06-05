@@ -67,4 +67,20 @@ app.MapGet("/leads/accepted", async (IQueryDispatcher dispatcher) =>
 .WithName("GetAcceptedLeads")
 .WithOpenApi();
 
+app.MapPost("/lead/decline/{id}", async (int id, ILeadRepository repository) =>
+{
+    var lead = await repository.GetByIdAsync(id);
+    if (lead == null)
+    {
+        return Results.NotFound();
+    }
+
+    lead.Status = "declined";
+    await repository.UpdateAsync(lead);
+    
+    return Results.Ok();
+})
+.WithName("DeclineLead")
+.WithOpenApi();
+
 app.Run();

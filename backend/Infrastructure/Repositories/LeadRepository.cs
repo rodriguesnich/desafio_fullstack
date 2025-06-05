@@ -27,5 +27,16 @@ namespace Backend.Infrastructure.Repositories
                 .Where(l => l.Status == "pending")
                 .ToListAsync();
         }
+
+        public async Task<Lead?> GetByIdAsync(int id)
+        {
+            return await _context.Leads.FindAsync(id);
+        }
+
+        public async Task UpdateAsync(Lead lead)
+        {
+            _context.Entry(lead).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
     }
 }
