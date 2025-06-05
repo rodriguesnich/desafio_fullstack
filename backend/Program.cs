@@ -70,16 +70,14 @@ app.MapGet("/leads", async (IQueryDispatcher dispatcher) =>
     var query = new GetPendingLeadsQuery();
     return await dispatcher.Dispatch<GetPendingLeadsQuery, IEnumerable<LeadDto>>(query);
 })
-.WithName("GetPendingLeads")
-.WithOpenApi();
+.WithName("GetPendingLeads");
 
 app.MapGet("/leads/accepted", async (IQueryDispatcher dispatcher) =>
 {
     var query = new GetAcceptedLeadsQuery();
     return await dispatcher.Dispatch<GetAcceptedLeadsQuery, IEnumerable<AcceptedLeadDto>>(query);
 })
-.WithName("GetAcceptedLeads")
-.WithOpenApi();
+.WithName("GetAcceptedLeads");
 
 app.MapPost("/lead/accept/{id}", async (int id, ICommandDispatcher dispatcher) =>
 {
@@ -93,8 +91,7 @@ app.MapPost("/lead/accept/{id}", async (int id, ICommandDispatcher dispatcher) =
     
     return Results.Ok();
 })
-.WithName("AcceptLead")
-.WithOpenApi();
+.WithName("AcceptLead");
 
 app.MapPost("/lead/decline/{id}", async (int id, ICommandDispatcher dispatcher) =>
 {
@@ -108,7 +105,6 @@ app.MapPost("/lead/decline/{id}", async (int id, ICommandDispatcher dispatcher) 
     
     return Results.Ok();
 })
-.WithName("DeclineLead")
-.WithOpenApi();
+.WithName("DeclineLead");
 
 app.Run();

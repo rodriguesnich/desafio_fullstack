@@ -5,10 +5,11 @@ This is a Full Stack Lead Management System built with .NET 6 backend and planne
 ## Current State
 
 The project is currently in development with the following implemented:
-- Backend API with CQRS pattern for queries
+- Backend API with CQRS pattern for commands and queries
 - Domain-Driven Design (DDD) architecture
 - Entity Framework Core with SQLite (temporary database for development)
-- Basic lead management endpoints
+- Lead management endpoints including accept and decline functionality
+- Email notification service infrastructure
 
 ## Prerequisites
 
@@ -73,8 +74,7 @@ backend/
 
 ### Planned Features
 - Migration to SQL Server
-- Implementation of Accept/Decline lead endpoints
-- Email notification system
+- Enhancement of email notification system
 - Frontend implementation
 - Docker containerization
 
@@ -83,8 +83,6 @@ backend/
 Currently implemented:
 - GET `/api/leads/accepted` - List all accepted leads
 - GET `/api/leads/pending` - List all pending leads
-
-Planned:
 - POST `/api/leads/{id}/accept` - Accept a lead
 - POST `/api/leads/{id}/decline` - Decline a lead
 
