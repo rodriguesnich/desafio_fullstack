@@ -3,6 +3,9 @@ using Backend.Infrastructure.Data;
 using Backend.Infrastructure.Repositories;
 using Backend.Infrastructure.Services;
 using Backend.Application.Queries;
+using Backend.Application.Commands;
+using Backend.Application.Commands.AcceptLead;
+using Backend.Application.Commands.DeclineLead;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +35,11 @@ builder.Services.AddScoped<ILeadRepository, LeadRepository>();
 builder.Services.AddScoped<IQueryHandler<GetPendingLeadsQuery, IEnumerable<LeadDto>>, GetPendingLeadsQueryHandler>();
 builder.Services.AddScoped<IQueryHandler<GetAcceptedLeadsQuery, IEnumerable<AcceptedLeadDto>>, GetAcceptedLeadsQueryHandler>();
 builder.Services.AddScoped<IQueryDispatcher, QueryDispatcher>();
+
+// Register Command Handlers
+builder.Services.AddScoped<ICommandHandler<DeclineLeadCommand, bool>, DeclineLeadCommandHandler>();
+builder.Services.AddScoped<ICommandHandler<AcceptLeadCommand, bool>, AcceptLeadCommandHandler>();
+builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
 
 // Register Services
 builder.Services.AddScoped<IEmailService, FakeEmailService>();
@@ -71,33 +79,30 @@ app.MapGet("/leads/accepted", async (IQueryDispatcher dispatcher) =>
 .WithName("GetAcceptedLeads")
 .WithOpenApi();
 
-app.MapPost("/lead/accept/{id}", async (int id, ILeadRepository repository, IEmailService emailService) =>
+app.MapPost("/lead/accept/{id}", async (int id, ICommandDispatcher dispatcher) =>
 {
-    var lead = await repository.GetByIdAsync(id);
-    if (lead == null)
+    var command = new AcceptLeadCommand(id);
+    var result = await dispatcher.Dispatch<AcceptLeadCommand, bool>(command);
+    
+    if (!result)
     {
         return Results.NotFound();
     }
-
-    lead.Accept();
-    await repository.UpdateAsync(lead);
-    await emailService.SendAcceptanceEmailAsync(lead);
     
     return Results.Ok();
 })
 .WithName("AcceptLead")
 .WithOpenApi();
 
-app.MapPost("/lead/decline/{id}", async (int id, ILeadRepository repository) =>
+app.MapPost("/lead/decline/{id}", async (int id, ICommandDispatcher dispatcher) =>
 {
-    var lead = await repository.GetByIdAsync(id);
-    if (lead == null)
+    var command = new DeclineLeadCommand(id);
+    var result = await dispatcher.Dispatch<DeclineLeadCommand, bool>(command);
+    
+    if (!result)
     {
         return Results.NotFound();
     }
-
-    lead.Status = "declined";
-    await repository.UpdateAsync(lead);
     
     return Results.Ok();
 })

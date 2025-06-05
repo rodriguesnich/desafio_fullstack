@@ -32,6 +32,11 @@ namespace Backend.Domain.Entities
             Status = "accepted";
         }
 
+        public void Decline()
+        {
+            Status = "declined";
+        }
+
         private void ApplyDiscount()
         {
             Price *= DISCOUNT_PERCENTAGE;
