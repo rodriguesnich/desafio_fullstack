@@ -40,7 +40,11 @@ namespace backend.Migrations
                 values: new object[,]
                 {
                     { 1, "Plumbing", "john@example.com", "John Doe", "1234567890", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fix leaking tap", 150.00m, "accepted", "Downtown" },
-                    { 2, "Electrical", "jane@example.com", "Jane Smith", "0987654321", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Install new lights", 200.00m, "pending", "Uptown" }
+                    { 2, "Electrical", "jane@example.com", "Jane Smith", "0987654321", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Install new lights", 200.00m, "pending", "Uptown" },
+                    { 3, "Electrical", "bill@example.com", "Bill Smith", "0987654321", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Install new lights", 200.00m, "pending", "Uptown" },
+                    { 4, "Electrical", "jane@example.com", "Jane Smith", "0987654321", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Install new lights", 200.00m, "declined", "Uptown" },
+                    { 5, "Plumbing", "cosby@example.com", "Cosby James", "0987654321", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Install new lights", 200.00m, "pending", "Uptown" },
+                    { 6, "Plumbing", "mosby@example.com", "Mosby James", "0987654321", new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Install new lights", 200.00m, "accepted", "Uptown" }
                 });
         }
 
