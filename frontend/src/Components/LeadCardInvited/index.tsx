@@ -1,15 +1,6 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  Divider,
-  Typography,
-} from "@mui/material";
-import LeadCardHeader from "../LeadCard/Components/LeadCardHeader";
-import LeadCardSummaryInfo from "../LeadCard/Components/LeardCardSummaryInfo";
-import LeadCardSummaryInfoItem from "../LeadCard/Components/LeardCardSummaryInfo/LeadCardSummaryInfoItem";
-import LeadCardDescription from "../LeadCard/Components/LeadCardDescription";
+import { Box, Button, Typography } from "@mui/material";
+import LeadCard from "../LeadCard";
+import LeadCardSummaryInfoItem from "../LeadCard/Components/LeadCardSummaryInfoItem";
 import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
 
 interface LeadCardInvitedProps {
@@ -22,7 +13,6 @@ interface LeadCardInvitedProps {
   Price: number;
 }
 
-
 function LeadCardInvited({
   ID,
   ContactFirstName,
@@ -33,19 +23,17 @@ function LeadCardInvited({
   Price,
 }: LeadCardInvitedProps) {
   return (
-    <Card>
-      <LeadCardHeader FirstName={ContactFirstName} CreatedDate={DateCreated} />
-      <LeadCardSummaryInfo>
+    <LeadCard>
+      <LeadCard.Header FirstName={ContactFirstName} CreatedDate={DateCreated} />
+      <LeadCard.SummaryInfo>
         <LeadCardSummaryInfoItem>{Suburb}</LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>{Category}</LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>Job ID: {ID}</LeadCardSummaryInfoItem>
-      </LeadCardSummaryInfo>
-      <LeadCardDescription>
+      </LeadCard.SummaryInfo>
+      <LeadCard.Description>
         <Typography>{Description}</Typography>
-      </LeadCardDescription>
-      {/* migra pra lead card action padrão composição */}
-      <Divider />
-      <CardActions sx={{ marginY: "1rem" }}>
+      </LeadCard.Description>
+      <LeadCard.Actions>
         <Box gap={1} display="flex">
           <Button variant="contained">Accept</Button>
           <Button variant="contained" color="inherit">
@@ -57,8 +45,8 @@ function LeadCardInvited({
             <b>{UsCurrencyFormater(Price)}</b> Lead Invitation
           </Typography>
         </Box>
-      </CardActions>
-    </Card>
+      </LeadCard.Actions>
+    </LeadCard>
   );
 }
 

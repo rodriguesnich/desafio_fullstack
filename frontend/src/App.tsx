@@ -15,7 +15,7 @@ function App() {
   return (
     <Box
       className="App"
-      sx={{ width: "100vw", height: "100dvh", backgroundColor: "lightgrey" }}
+      sx={{ width: "100vw", height: "100dvh" }}
     >
       <Box sx={{ padding: "1rem" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

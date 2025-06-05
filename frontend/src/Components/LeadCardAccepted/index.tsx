@@ -1,8 +1,6 @@
-import { Box, Card, Typography } from "@mui/material";
-import LeadCardHeader from "../LeadCard/Components/LeadCardHeader";
-import LeadCardSummaryInfo from "../LeadCard/Components/LeardCardSummaryInfo";
-import LeadCardSummaryInfoItem from "../LeadCard/Components/LeardCardSummaryInfo/LeadCardSummaryInfoItem";
-import LeadCardDescription from "../LeadCard/Components/LeadCardDescription";
+import { Box, Typography } from "@mui/material";
+import LeadCard from "../LeadCard";
+import LeadCardSummaryInfoItem from "../LeadCard/Components/LeadCardSummaryInfoItem";
 import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
 
 interface LeadCardAcceptedProps {
@@ -29,27 +27,25 @@ function LeadCardAccepted({
   ContactEmail,
 }: LeadCardAcceptedProps) {
   return (
-    <Card>
-      <LeadCardHeader FirstName={ContactFullName} CreatedDate={DateCreated} />
-      <LeadCardSummaryInfo>
+    <LeadCard>
+      <LeadCard.Header FirstName={ContactFullName} CreatedDate={DateCreated} />
+      <LeadCard.SummaryInfo>
         <LeadCardSummaryInfoItem>{Suburb}</LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>{Category}</LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>Job ID: {ID}</LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>
           {UsCurrencyFormater(Price)} Lead Invitation
         </LeadCardSummaryInfoItem>
-      </LeadCardSummaryInfo>
-      <LeadCardDescription>
+      </LeadCard.SummaryInfo>
+      <LeadCard.Description>
         <Typography gap={1}>
           <b>Contact Phone:</b> {ContactPhoneNumber}
           <b>Contact Email:</b> {ContactEmail}
         </Typography>
-
         <br />
-
         <Typography>{Description}</Typography>
-      </LeadCardDescription>
-    </Card>
+      </LeadCard.Description>
+    </LeadCard>
   );
 }
 

@@ -1,5 +1,6 @@
 TODO:
-- create list endpoints using cqrs [ ]
+- create list endpoints using cqrs [x]
+- 
 
 API:
 - List Leads Accepted
