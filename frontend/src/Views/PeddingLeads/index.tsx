@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import LeadCardInvited from "../../Components/LeadCardInvited";
-import { getPeddingLeads, PeddingLeadDTO } from "../../Apis/GetPeddingLeadsService";
+import { getPeddingLeads } from "../../Apis/GetPeddingLeadsService";
+import { LeadsAdapter, PeddingLeadCardProps } from "../../Adapters/LeadsAdapter";
 
 function PeddingLeadsView() {
-    const [peddingLeads, setPeddingLeads] = useState<PeddingLeadDTO[]>([]);
+    const [peddingLeads, setPeddingLeads] = useState<PeddingLeadCardProps[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchPeddingLeads = async () => {
             try {
                 const leads = await getPeddingLeads();
-                setPeddingLeads(leads);
+                setPeddingLeads(leads.map(LeadsAdapter.toPeddingLeadCard));
             } catch (err) {
                 setError('Failed to load pending leads');
                 console.error(err);
@@ -26,14 +27,8 @@ function PeddingLeadsView() {
             {error && <div style={{ color: 'red' }}>{error}</div>}
             {peddingLeads.map((lead) => (
                 <LeadCardInvited
-                    key={lead.id}
-                    ID={lead.id}
-                    ContactFirstName={lead.contactFirstName}
-                    Suburb={lead.suburb}
-                    Category={lead.category}
-                    DateCreated={new Date(lead.dateCreated)}
-                    Description={lead.description}
-                    Price={lead.price}
+                    key={lead.ID}
+                    {...lead}
                 />
             ))}
         </Box>

@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import LeadCardAccepted from "../../Components/LeadCardAccepted";
 import { AcceptedLeadDTO, getAcceptedLeads } from "../../Apis/GetAcceptedLeadsService";
+import { LeadsAdapter, AcceptedLeadCardProps } from "../../Adapters/LeadsAdapter";
 
 function AcceptedLeadsView() {
-  const [acceptedLeads, setAcceptedLeads] = useState<AcceptedLeadDTO[]>([]);
+  const [acceptedLeads, setAcceptedLeads] = useState<AcceptedLeadCardProps[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAcceptedLeads = async () => {
       try {
         const leads = await getAcceptedLeads();
-        setAcceptedLeads(leads);
+        setAcceptedLeads(leads.map(LeadsAdapter.toAcceptedLeadCard));
       } catch (err) {
         setError('Failed to load accepted leads');
         console.error(err);
@@ -26,16 +27,8 @@ function AcceptedLeadsView() {
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {acceptedLeads.map((lead) => (
         <LeadCardAccepted
-          key={lead.id}
-          ID={lead.id}
-          Category={lead.category}
-          ContactFullName={lead.contactFullName}
-          DateCreated={new Date(lead.dateCreated)}
-          Description={lead.description}
-          Suburb={lead.suburb}
-          Price={lead.price}
-          ContactPhoneNumber={lead.contactPhoneNumber}
-          ContactEmail={lead.contactEmail}
+          key={lead.ID}
+          {...lead}
         />
       ))}
     </Box>
