@@ -2,6 +2,10 @@ import { Box, Typography } from "@mui/material";
 import LeadCard from "../LeadCard";
 import LeadCardSummaryInfoItem from "../LeadCard/Components/LeadCardSummaryInfoItem";
 import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
+import LocationPinIcon from "@mui/icons-material/LocationPin";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import EmailIcon from "@mui/icons-material/Email";
 
 interface LeadCardAcceptedProps {
   ID: string;
@@ -30,20 +34,30 @@ function LeadCardAccepted({
     <LeadCard>
       <LeadCard.Header FirstName={ContactFullName} CreatedDate={DateCreated} />
       <LeadCard.SummaryInfo>
-        <LeadCardSummaryInfoItem>{Suburb}</LeadCardSummaryInfoItem>
-        <LeadCardSummaryInfoItem>{Category}</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>
+          <LocationPinIcon />
+          {Suburb}
+        </LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>
+          <BusinessCenterIcon /> {Category}
+        </LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>Job ID: {ID}</LeadCardSummaryInfoItem>
         <LeadCardSummaryInfoItem>
           {UsCurrencyFormater(Price)} Lead Invitation
         </LeadCardSummaryInfoItem>
       </LeadCard.SummaryInfo>
       <LeadCard.Description>
-        <Typography gap={1}>
-          <b>Contact Phone:</b> {ContactPhoneNumber}
-          <b>Contact Email:</b> {ContactEmail}
+        <Typography sx={{display: "flex", justifyContent:"left", gap: "2rem"}} color="warning">
+          <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <LocalPhoneIcon /> {ContactPhoneNumber}
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <EmailIcon /> {ContactEmail}
+          </Box>
         </Typography>
         <br />
-        <Typography>{Description}</Typography>
+        <Typography textAlign="left">{Description}</Typography>
       </LeadCard.Description>
     </LeadCard>
   );

@@ -4,7 +4,7 @@ function LeadCardSummaryInfo({ children }: { children?: React.ReactNode }) {
   return (
     <Box>
       <Divider sx={{ marginBottom: "1rem" }} />
-      <Box sx={{ display: "flex", paddingX: "1rem", gap: "1rem" }}>
+      <Box sx={{ display: "flex", paddingX: "1rem", gap: "2rem" }}>
         {children}
       </Box>
 
