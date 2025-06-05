@@ -1,11 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
-function LeadCardDescription() {
-  return (
-    <Box sx={{marginBottom: "1rem"}}>
-      <Typography>some text</Typography>
-    </Box>
-  );
+function LeadCardDescription({ children }: { children?: React.ReactNode }) {
+  return <Box sx={{ marginBottom: "1rem" }}>{children}</Box>;
 }
 
 export default LeadCardDescription;

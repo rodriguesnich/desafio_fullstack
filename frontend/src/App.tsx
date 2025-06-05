@@ -13,8 +13,11 @@ function App() {
   };
 
   return (
-    <Box className="App" sx={{ width: "90%", margin: "auto" }}>
-      <Box sx={{ width: "100%" }}>
+    <Box
+      className="App"
+      sx={{ width: "100vw", height: "100dvh", backgroundColor: "lightgrey" }}
+    >
+      <Box sx={{ padding: "1rem" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={currentTab}
@@ -27,10 +30,32 @@ function App() {
           </Tabs>
         </Box>
         <TabPanel value={currentTab} index={0}>
-          <LeadCardInvited />
+          <LeadCardInvited
+            ID="557766"
+            ContactFirstName="Bill Arthur"
+            Suburb="Yanderra 2574"
+            Category="Painters"
+            DateCreated={new Date()}
+            Description={
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            }
+            Price={100}
+          />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <LeadCardAccepted />
+          <LeadCardAccepted
+            Category="Painters"
+            ContactFullName="Bill"
+            DateCreated={new Date()}
+            ID="557766"
+            Description={
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            }
+            Suburb="Yanderra 2574"
+            Price={100}
+            ContactPhoneNumber="123-456-7890"
+            ContactEmail="rodriguesnich@outlook.com"
+          />
         </TabPanel>
       </Box>
     </Box>

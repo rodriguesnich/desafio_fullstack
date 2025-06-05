@@ -1,19 +1,54 @@
-import { Card } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import LeadCardHeader from "../LeadCard/Components/LeadCardHeader";
 import LeadCardSummaryInfo from "../LeadCard/Components/LeardCardSummaryInfo";
 import LeadCardSummaryInfoItem from "../LeadCard/Components/LeardCardSummaryInfo/LeadCardSummaryInfoItem";
 import LeadCardDescription from "../LeadCard/Components/LeadCardDescription";
+import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
 
-function LeadCardAccepted() {
+interface LeadCardAcceptedProps {
+  ID: string;
+  ContactFullName: string;
+  Suburb: string;
+  Category: string;
+  DateCreated: Date;
+  Description: string;
+  Price: number;
+  ContactPhoneNumber: string;
+  ContactEmail: string;
+}
+
+function LeadCardAccepted({
+  ID,
+  ContactFullName,
+  Suburb,
+  Category,
+  DateCreated,
+  Description,
+  Price,
+  ContactPhoneNumber,
+  ContactEmail,
+}: LeadCardAcceptedProps) {
   return (
-    <Card >
-      <LeadCardHeader FirstName="Nicholas" CreatedDate={new Date()} />
+    <Card>
+      <LeadCardHeader FirstName={ContactFullName} CreatedDate={DateCreated} />
       <LeadCardSummaryInfo>
-        <LeadCardSummaryInfoItem>Yanderra 2574</LeadCardSummaryInfoItem>
-        <LeadCardSummaryInfoItem>Painters</LeadCardSummaryInfoItem>
-        <LeadCardSummaryInfoItem>Job ID: 5577421</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>{Suburb}</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>{Category}</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>Job ID: {ID}</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>
+          {UsCurrencyFormater(Price)} Lead Invitation
+        </LeadCardSummaryInfoItem>
       </LeadCardSummaryInfo>
-      <LeadCardDescription />
+      <LeadCardDescription>
+        <Typography gap={1}>
+          <b>Contact Phone:</b> {ContactPhoneNumber}
+          <b>Contact Email:</b> {ContactEmail}
+        </Typography>
+
+        <br />
+
+        <Typography>{Description}</Typography>
+      </LeadCardDescription>
     </Card>
   );
 }

@@ -10,17 +10,39 @@ import LeadCardHeader from "../LeadCard/Components/LeadCardHeader";
 import LeadCardSummaryInfo from "../LeadCard/Components/LeardCardSummaryInfo";
 import LeadCardSummaryInfoItem from "../LeadCard/Components/LeardCardSummaryInfo/LeadCardSummaryInfoItem";
 import LeadCardDescription from "../LeadCard/Components/LeadCardDescription";
+import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
 
-function LeadCardInvited() {
+interface LeadCardInvitedProps {
+  ID: string;
+  ContactFirstName: string;
+  Suburb: string;
+  Category: string;
+  DateCreated: Date;
+  Description: string;
+  Price: number;
+}
+
+
+function LeadCardInvited({
+  ID,
+  ContactFirstName,
+  Suburb,
+  Category,
+  DateCreated,
+  Description,
+  Price,
+}: LeadCardInvitedProps) {
   return (
-    <Card >
-      <LeadCardHeader FirstName="Nicholas" CreatedDate={new Date()} />
+    <Card>
+      <LeadCardHeader FirstName={ContactFirstName} CreatedDate={DateCreated} />
       <LeadCardSummaryInfo>
-        <LeadCardSummaryInfoItem>Yanderra 2574</LeadCardSummaryInfoItem>
-        <LeadCardSummaryInfoItem>Painters</LeadCardSummaryInfoItem>
-        <LeadCardSummaryInfoItem>Job ID: 5577421</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>{Suburb}</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>{Category}</LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>Job ID: {ID}</LeadCardSummaryInfoItem>
       </LeadCardSummaryInfo>
-      <LeadCardDescription />
+      <LeadCardDescription>
+        <Typography>{Description}</Typography>
+      </LeadCardDescription>
       {/* migra pra lead card action padrão composição */}
       <Divider />
       <CardActions sx={{ marginY: "1rem" }}>
@@ -32,7 +54,7 @@ function LeadCardInvited() {
         </Box>
         <Box>
           <Typography>
-            <b>$Price</b> Lead Invitation
+            <b>{UsCurrencyFormater(Price)}</b> Lead Invitation
           </Typography>
         </Box>
       </CardActions>
