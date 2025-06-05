@@ -20,5 +20,12 @@ namespace Backend.Infrastructure.Repositories
                 .Where(l => l.Status == "accepted")
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Lead>> GetPendingLeadsAsync()
+        {
+            return await _context.Leads
+                .Where(l => l.Status == "pending")
+                .ToListAsync();
+        }
     }
 }
