@@ -4,9 +4,11 @@ using Backend.Infrastructure.Repositories;
 using Backend.Infrastructure.Services;
 using Backend.Application.Queries;
 using Backend.Application.Commands;
+using Microsoft.EntityFrameworkCore;
+
+// Adding required command namespaces
 using Backend.Application.Commands.AcceptLead;
 using Backend.Application.Commands.DeclineLead;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
