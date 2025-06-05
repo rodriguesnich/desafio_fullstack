@@ -1,6 +1,7 @@
 using Backend.Domain.Interfaces;
 using Backend.Infrastructure.Data;
 using Backend.Infrastructure.Repositories;
+using Backend.Infrastructure.Services;
 using Backend.Application.Queries;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,9 @@ builder.Services.AddScoped<ILeadRepository, LeadRepository>();
 builder.Services.AddScoped<IQueryHandler<GetPendingLeadsQuery, IEnumerable<LeadDto>>, GetPendingLeadsQueryHandler>();
 builder.Services.AddScoped<IQueryHandler<GetAcceptedLeadsQuery, IEnumerable<AcceptedLeadDto>>, GetAcceptedLeadsQueryHandler>();
 builder.Services.AddScoped<IQueryDispatcher, QueryDispatcher>();
+
+// Register Services
+builder.Services.AddScoped<IEmailService, FakeEmailService>();
 
 var app = builder.Build();
 
@@ -65,6 +69,23 @@ app.MapGet("/leads/accepted", async (IQueryDispatcher dispatcher) =>
     return await dispatcher.Dispatch<GetAcceptedLeadsQuery, IEnumerable<AcceptedLeadDto>>(query);
 })
 .WithName("GetAcceptedLeads")
+.WithOpenApi();
+
+app.MapPost("/lead/accept/{id}", async (int id, ILeadRepository repository, IEmailService emailService) =>
+{
+    var lead = await repository.GetByIdAsync(id);
+    if (lead == null)
+    {
+        return Results.NotFound();
+    }
+
+    lead.Accept();
+    await repository.UpdateAsync(lead);
+    await emailService.SendAcceptanceEmailAsync(lead);
+    
+    return Results.Ok();
+})
+.WithName("AcceptLead")
 .WithOpenApi();
 
 app.MapPost("/lead/decline/{id}", async (int id, ILeadRepository repository) =>

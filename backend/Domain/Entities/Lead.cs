@@ -1,3 +1,5 @@
+using Backend.Domain.Specifications;
+
 namespace Backend.Domain.Entities
 {
     public class Lead
@@ -12,5 +14,27 @@ namespace Backend.Domain.Entities
         public string Category { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
+
+        private readonly ISpecification<Lead> _highValueSpecification;
+        private const decimal DISCOUNT_PERCENTAGE = 0.9m;
+
+        public Lead()
+        {
+            _highValueSpecification = new HighValueLeadSpecification();
+        }
+
+        public void Accept()
+        {
+            if (_highValueSpecification.IsSatisfiedBy(this))
+            {
+                ApplyDiscount();
+            }
+            Status = "accepted";
+        }
+
+        private void ApplyDiscount()
+        {
+            Price *= DISCOUNT_PERCENTAGE;
+        }
     }
 }
