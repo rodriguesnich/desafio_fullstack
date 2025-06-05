@@ -23,7 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain/" />
+    <Compile Remove="backend.UnitTests\**" />
+    <Content Remove="backend.UnitTests\**" />
+    <EmbeddedResource Remove="backend.UnitTests\**" />
+    <None Remove="backend.UnitTests\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain/" />
+  </ItemGroup>
 </Project>
