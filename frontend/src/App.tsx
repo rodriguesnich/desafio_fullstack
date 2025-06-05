@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
-import LeadCardAccepted from "./Components/LeadCardAccepted";
-import LeadCardInvited from "./Components/LeadCardInvited";
 import TabPanel from "./Components/TabPanel";
+import AcceptedLeadsView from "./Views/AcceptedLeads";
+import PeddingLeadsView from "./Views/PeddingLeads";
 import "./App.css";
 
 function App() {
@@ -30,32 +30,10 @@ function App() {
           </Tabs>
         </Box>
         <TabPanel value={currentTab} index={0}>
-          <LeadCardInvited
-            ID="557766"
-            ContactFirstName="Bill Arthur"
-            Suburb="Yanderra 2574"
-            Category="Painters"
-            DateCreated={new Date()}
-            Description={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            }
-            Price={100}
-          />
+          <PeddingLeadsView />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <LeadCardAccepted
-            Category="Painters"
-            ContactFullName="Bill"
-            DateCreated={new Date()}
-            ID="557766"
-            Description={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            }
-            Suburb="Yanderra 2574"
-            Price={100}
-            ContactPhoneNumber="123-456-7890"
-            ContactEmail="rodriguesnich@outlook.com"
-          />
+          <AcceptedLeadsView />
         </TabPanel>
       </Box>
     </Box>

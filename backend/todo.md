@@ -1,5 +1,9 @@
 TODO:
 - create list endpoints using cqrs [x]
+- test list endpoints [ ]
+- 
+- 
+- 
 - 
 
 API:
