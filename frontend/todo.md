@@ -1,2 +1,0 @@
-- migrar lead card para o padrão de composição de componente. []
-- 

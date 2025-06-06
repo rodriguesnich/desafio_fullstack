@@ -4,6 +4,7 @@ import LeadCardSummaryInfoItem from "../LeadCard/Components/LeadCardSummaryInfoI
 import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
 import LocationPinIcon from "@mui/icons-material/LocationPin";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import { declineLead } from "../../Apis/DeclineLeadService";
 
 interface LeadCardInvitedProps {
   ID: string;
@@ -13,6 +14,7 @@ interface LeadCardInvitedProps {
   DateCreated: Date;
   Description: string;
   Price: number;
+  onDecline?: () => void;
 }
 
 function LeadCardInvited({
@@ -23,12 +25,25 @@ function LeadCardInvited({
   DateCreated,
   Description,
   Price,
+  onDecline,
 }: LeadCardInvitedProps) {
+  const handleDecline = async () => {
+    try {
+      await declineLead(ID);
+      if (onDecline) {
+        onDecline();
+      }
+    } catch (error) {
+      console.error("Failed to decline lead:", error);
+      // Here you could add toast notification for errors
+    }
+  };
+
   return (
     <LeadCard>
       <LeadCard.Header FirstName={ContactFirstName} CreatedDate={DateCreated} />
       <LeadCard.SummaryInfo>
-               <LeadCardSummaryInfoItem>
+        <LeadCardSummaryInfoItem>
           <LocationPinIcon />
           {Suburb}
         </LeadCardSummaryInfoItem>
@@ -43,12 +58,12 @@ function LeadCardInvited({
       <LeadCard.Actions>
         <Box gap={1} display="flex">
           <Button variant="contained">Accept</Button>
-          <Button variant="contained" color="inherit">
+          <Button variant="contained" color="inherit" onClick={handleDecline}>
             Decline
           </Button>
         </Box>
         <Box>
-          <Typography >
+          <Typography>
             <b>{UsCurrencyFormater(Price)}</b> Lead Invitation
           </Typography>
         </Box>

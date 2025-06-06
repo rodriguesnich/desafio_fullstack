@@ -30,12 +30,6 @@
 1. High Priority
    - [ ] Implement Accept/Decline functionality
      - [ ] Add confirmation modals
-     - [ ] Handle price discount logic in UI
-     - [ ] Add loading states during API calls
-   - [ ] Connect with backend API
-     - [ ] Set up API client configuration
-     - [ ] Implement error handling
-     - [ ] Add retry logic for failed requests
 
 2. UI Enhancements
    - [ ] Add loading skeletons
@@ -43,9 +37,6 @@
    - [ ] Add toast notifications for actions
    - [ ] Verify responsive design
    - [ ] Add empty states for lists
-
-3. Testing
-   - [ ] Add loading state tests
 
 4. Nice to Have
    - [ ] Add create lead dialog
