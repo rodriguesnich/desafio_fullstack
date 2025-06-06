@@ -26,6 +26,10 @@ function PeddingLeadsView() {
         setPeddingLeads(prevLeads => prevLeads.filter(lead => lead.ID !== declinedLeadId));
     };
 
+    const handleLeadAccepted = (acceptedLeadId: string) => {
+        setPeddingLeads(prevLeads => prevLeads.filter(lead => lead.ID !== acceptedLeadId));
+    };
+
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
             {error && <div style={{ color: 'red' }}>{error}</div>}
@@ -34,6 +38,7 @@ function PeddingLeadsView() {
                     key={lead.ID}
                     {...lead}
                     onDecline={() => handleLeadDeclined(lead.ID)}
+                    onAccept={() => handleLeadAccepted(lead.ID)}
                 />
             ))}
         </Box>

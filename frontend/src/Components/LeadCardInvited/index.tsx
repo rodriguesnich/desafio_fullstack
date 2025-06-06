@@ -5,6 +5,7 @@ import UsCurrencyFormater from "../../Helpers/UsCurrencyFormater";
 import LocationPinIcon from "@mui/icons-material/LocationPin";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import { declineLead } from "../../Apis/DeclineLeadService";
+import { acceptLead } from "../../Apis/AcceptLeadService";
 
 interface LeadCardInvitedProps {
   ID: string;
@@ -15,6 +16,7 @@ interface LeadCardInvitedProps {
   Description: string;
   Price: number;
   onDecline?: () => void;
+  onAccept?: () => void;
 }
 
 function LeadCardInvited({
@@ -26,6 +28,7 @@ function LeadCardInvited({
   Description,
   Price,
   onDecline,
+  onAccept,
 }: LeadCardInvitedProps) {
   const handleDecline = async () => {
     const confirmed = window.confirm(
@@ -40,6 +43,24 @@ function LeadCardInvited({
         }
       } catch (error) {
         console.error("Failed to decline lead:", error);
+        // Here you could add toast notification for errors
+      }
+    }
+  };
+
+  const handleAccept = async () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to accept the lead from ${ContactFirstName}?`
+    );
+
+    if (confirmed) {
+      try {
+        await acceptLead(ID);
+        if (onAccept) {
+          onAccept();
+        }
+      } catch (error) {
+        console.error("Failed to accept lead:", error);
         // Here you could add toast notification for errors
       }
     }
@@ -63,7 +84,9 @@ function LeadCardInvited({
       </LeadCard.Description>
       <LeadCard.Actions>
         <Box gap={1} display="flex">
-          <Button variant="contained">Accept</Button>
+          <Button variant="contained" onClick={handleAccept}>
+            Accept
+          </Button>
           <Button variant="contained" color="inherit" onClick={handleDecline}>
             Decline
           </Button>
