@@ -28,14 +28,20 @@ function LeadCardInvited({
   onDecline,
 }: LeadCardInvitedProps) {
   const handleDecline = async () => {
-    try {
-      await declineLead(ID);
-      if (onDecline) {
-        onDecline();
+    const confirmed = window.confirm(
+      `Are you sure you want to decline the lead from ${ContactFirstName}?`
+    );
+
+    if (confirmed) {
+      try {
+        await declineLead(ID);
+        if (onDecline) {
+          onDecline();
+        }
+      } catch (error) {
+        console.error("Failed to decline lead:", error);
+        // Here you could add toast notification for errors
       }
-    } catch (error) {
-      console.error("Failed to decline lead:", error);
-      // Here you could add toast notification for errors
     }
   };
 
